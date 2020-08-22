@@ -27,7 +27,7 @@ const SignIn: React.FC = () => {
   const { signIn } = useAuth();
   const { addToast } = useToast();
 
-  const handleSubmit = useCallback (async (data: SignInFormData) => {
+  const handleSubmit = useCallback(async (data: SignInFormData) => {
     try {
       formRef.current?.setErrors({});
 
@@ -51,33 +51,33 @@ const SignIn: React.FC = () => {
         const errors = getValidationErrors(err);
 
         formRef.current?.setErrors(errors);
-        
+
         return;
       }
 
       addToast({
-        type: 'success',
+        type: 'error',
         title: 'Erro na autenticação',
         description: 'Ocorreu um erro ao fazer login, cheque as credenciais.',
       });
     }
-  }, [signIn]);
+  }, [signIn, addToast]);
 
   return (
     <Container>
       <Content>
         <AnimationContainer>
-          <img src={logoImg} alt="GoBarber"/>
+          <img src={logoImg} alt="GoBarber" />
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu logon</h1>
 
             <Input name="email" icon={FiMail} placeholder="E-mail" />
-            
+
             <Input name="password" icon={FiLock} type="password" placeholder="Senha" />
-            
+
             <Button type="submit">Entrar</Button>
 
-            <a href="forgot">Esqueci minha senha</a>
+            <Link to="/forgot-password">Esqueci minha senha</Link>
           </Form>
           <Link to="/signup">
             <FiLogIn />
@@ -85,8 +85,8 @@ const SignIn: React.FC = () => {
           </Link>
         </AnimationContainer>
       </Content>
-        
-       <Background />
+
+      <Background />
 
     </Container>
   );
